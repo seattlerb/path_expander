@@ -1,0 +1,8 @@
+.autotest
+History.rdoc
+Manifest.txt
+README.rdoc
+Rakefile
+lib/path_expander.rb
+test/test_bad.rb
+test/test_path_expander.rb
