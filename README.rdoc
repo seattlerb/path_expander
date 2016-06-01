@@ -32,7 +32,7 @@ PathExpander.
       MY_GLOB = "**/*.rb"
 
       def initialize args = ARGV
-        super args, TEST_GLOB
+        super args, MY_GLOB
       end
     end
 
