@@ -42,7 +42,7 @@ class PathExpander
   def expand_dirs_to_files *dirs
     dirs.flatten.map { |p|
       if File.directory? p then
-        Dir[File.join(p, glob)]
+        Dir[File.join(p, glob)].find_all { |f| File.file? f }
       else
         p
       end
