@@ -88,7 +88,8 @@ class PathExpander
           flags << arg
         end
       else
-        if File.exist? arg then
+        root_path = File.expand_path(arg) == "/" # eg: -n /./
+        if File.exist? arg and not root_path then
           pos_files += expand_dirs_to_files(arg)
         else
           flags << arg

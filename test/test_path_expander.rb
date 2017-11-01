@@ -142,6 +142,13 @@ class TestPathExpander < Minitest::Test
                         "42")
   end
 
+  def test_process_args_root
+    assert_process_args(%w[],
+                        %w[-n /./],
+                        "-n",
+                        "/./")
+  end
+
   def test_process_flags
     exp = %w[a b c]
     act = expander.process_flags %w[a b c]
