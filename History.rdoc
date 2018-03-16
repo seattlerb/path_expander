@@ -1,3 +1,9 @@
+=== 1.0.3 / 2018-03-16
+
+* 1 bug fix:
+
+  * Don't process files if path expands to root directory. Prevents -n /./ from hanging.
+
 === 1.0.2 / 2017-05-09
 
 * 1 bug fix:
