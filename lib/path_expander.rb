@@ -46,7 +46,7 @@ class PathExpander
       else
         p
       end
-    }.flatten
+    }.flatten.sort
   end
 
   ##
