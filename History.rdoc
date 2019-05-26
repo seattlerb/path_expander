@@ -1,3 +1,9 @@
+=== 1.0.4 / 2019-05-26
+
+* 1 bug fix:
+
+  * Sorted the output from expand_dirs_to_files. (deivid-rodriguez)
+
 === 1.0.3 / 2018-03-16
 
 * 1 bug fix:
