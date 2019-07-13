@@ -144,7 +144,7 @@ class PathExpander
   def filter_files files, ignore
     ignore_paths = if ignore.respond_to? :read then
                      ignore.read
-                   elsif File.exists? ignore then
+                   elsif File.exist? ignore then
                      File.read ignore
                    end
 
