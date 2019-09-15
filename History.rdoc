@@ -1,3 +1,9 @@
+=== 1.0.5 / 2019-09-14
+
+* 1 bug fix:
+
+  * Fixed a deprecation warning from File.exists?
+
 === 1.0.4 / 2019-05-26
 
 * 1 bug fix:

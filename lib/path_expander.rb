@@ -13,7 +13,7 @@
 # PathExpander.
 
 class PathExpander
-  VERSION = "1.0.4" # :nodoc:
+  VERSION = "1.0.5" # :nodoc:
 
   ##
   # The args array to process.
