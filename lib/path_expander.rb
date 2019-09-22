@@ -26,12 +26,19 @@ class PathExpander
   attr_accessor :glob
 
   ##
-  # Create a new path expander that operates on args and expands via
-  # glob as necessary.
+  # The path to scan if no paths are found in the initial scan.
 
-  def initialize args, glob
+  attr_accessor :path
+
+  ##
+  # Create a new path expander that operates on args and expands via
+  # glob as necessary. Takes an optional +path+ arg to fall back on if
+  # no paths are found on the initial scan (see #process_args).
+
+  def initialize args, glob, path = "."
     self.args = args
     self.glob = glob
+    self.path = path
   end
 
   ##
@@ -71,18 +78,25 @@ class PathExpander
   # See expand_dirs_to_files for details on how expansion occurs.
   #
   # Subtraction happens last, regardless of argument ordering.
+  #
+  # If no files are found (which is not the same as having an empty
+  # file list after subtraction), then fall back to expanding on the
+  # default #path given to initialize.
 
   def process_args
     pos_files = []
     neg_files = []
     flags     = []
+    clean     = true
 
     args.each do |arg|
       case arg
       when /^@(.*)/ then # push back on, so they can have dirs/-/@ as well
+        clean = false
         args.concat process_file $1
       when /^-(.*)/ then
         if File.exist? $1 then
+          clean = false
           neg_files += expand_dirs_to_files($1)
         else
           flags << arg
@@ -90,6 +104,7 @@ class PathExpander
       else
         root_path = File.expand_path(arg) == "/" # eg: -n /./
         if File.exist? arg and not root_path then
+          clean = false
           pos_files += expand_dirs_to_files(arg)
         else
           flags << arg
@@ -97,7 +112,10 @@ class PathExpander
       end
     end
 
-    [pos_files - neg_files, flags]
+    files = pos_files - neg_files
+    files += expand_dirs_to_files(self.path) if files.empty? && clean
+
+    [files, flags]
   end
 
   ##

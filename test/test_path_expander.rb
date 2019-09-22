@@ -24,7 +24,7 @@ class TestPathExpander < Minitest::Test
   def assert_process_args exp_files, exp_args, *args
     expander.args.concat args
 
-    assert_equal [exp_files, exp_args], expander.process_args
+    assert_equal [exp_files.sort, exp_args], expander.process_args
   end
 
   def test_expand_dirs_to_files
@@ -155,6 +155,14 @@ class TestPathExpander < Minitest::Test
                         %w[-n /./],
                         "-n",
                         "/./")
+  end
+
+  def test_process_args_no_files
+    self.expander = PathExpander.new args, "*.rb", "test" # extra test default
+
+    assert_process_args(%w[test/test_bad.rb test/test_path_expander.rb],
+                        %w[-v],
+                        "-v")
   end
 
   def test_process_flags
