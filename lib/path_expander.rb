@@ -178,7 +178,7 @@ class PathExpander
       only_paths = File::FNM_PATHNAME
       files = files.reject { |f|
         f = File.expand_path(f)
-        dirs.any?     { |i| File.fnmatch?(i, File.dirname(f), only_paths) } ||
+        dirs.any?     { |i| File.dirname(f).start_with?(i) } ||
           globs.any?  { |i| File.fnmatch?(i, f) } ||
           ifiles.any? { |i| File.fnmatch?(i, f, only_paths) }
       }
