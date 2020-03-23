@@ -47,6 +47,14 @@ class TestPathExpander < Minitest::Test
     assert_filter_files_absolute_paths [], "test/"
   end
 
+  def test_filter_files_dir_with_subdir
+    files = %w[./test/test_src.rb ./test/sub/sub_test_src.rb ./src/test_src.rb]
+    assert_filter_files %w[./src/test_src.rb], "test/", files
+    assert_filter_files_absolute_paths [File.join(Dir.pwd, './src/test_src.rb')],
+      "test/",
+      files.map { |f| File.join(Dir.pwd, f) }
+  end
+
   def test_filter_files_files
     example = %w[test/file.rb test/sub/file.rb top/test/perf.rb]
     example_absolute_paths = example.map { |e| File.join(Dir.pwd, e) }
