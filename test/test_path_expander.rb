@@ -165,6 +165,12 @@ class TestPathExpander < Minitest::Test
                         "-v")
   end
 
+  def test_process_args_dash
+    assert_process_args(%w[-],
+                        %w[-v],
+                        "-", "-v")
+  end
+
   def test_process_flags
     exp = %w[a b c]
     act = expander.process_flags %w[a b c]

@@ -74,6 +74,7 @@ class PathExpander
   # -not_a_path   :: Add to flags to be processed.
   # dir_path      :: Expand and add to files to be processed.
   # file_path     :: Add to files to be processed.
+  # -             :: Add "-" (stdin) to files to be processed.
   #
   # See expand_dirs_to_files for details on how expansion occurs.
   #
@@ -94,6 +95,8 @@ class PathExpander
       when /^@(.*)/ then # push back on, so they can have dirs/-/@ as well
         clean = false
         args.concat process_file $1
+      when "-" then
+        pos_files << arg
       when /^-(.*)/ then
         if File.exist? $1 then
           clean = false
