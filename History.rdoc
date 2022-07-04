@@ -1,3 +1,9 @@
+=== 1.1.1 / 2022-07-03
+
+* 1 bug fix:
+
+  * Process plain '-' as a file, not an option.
+
 === 1.1.0 / 2019-09-22
 
 * 1 minor enhancement:
@@ -39,4 +45,3 @@
 * 1 major enhancement
 
   * Birthday!
-
