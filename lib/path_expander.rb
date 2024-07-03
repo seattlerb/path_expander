@@ -45,6 +45,8 @@ class PathExpander
   # Takes an array of paths and returns an array of paths where all
   # directories are expanded to all files found via the glob provided
   # to PathExpander.
+  #
+  # Paths are normalized to not have a leading "./".
 
   def expand_dirs_to_files *dirs
     dirs.flatten.map { |p|
@@ -53,7 +55,7 @@ class PathExpander
       else
         p
       end
-    }.flatten.sort
+    }.flatten.sort.map { |s| s.delete_prefix "./" }
   end
 
   ##

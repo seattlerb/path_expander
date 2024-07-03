@@ -34,12 +34,18 @@ class TestPathExpander < Minitest::Test
     assert_equal %w[Rakefile], expander.expand_dirs_to_files("Rakefile")
   end
 
-  def test_expand_dirs_to_files_sorting
+  def test_expand_dirs_to_files__sorting
     exp = %w[test/test_bad.rb test/test_path_expander.rb]
     input = %w[test/test_path_expander.rb test/test_bad.rb]
 
     assert_equal exp, expander.expand_dirs_to_files(*input)
     assert_equal %w[Rakefile], expander.expand_dirs_to_files("Rakefile")
+  end
+
+  def test_expand_dirs_to_files__leading_dot
+    exp = %w[test/test_bad.rb test/test_path_expander.rb]
+
+    assert_equal exp, expander.expand_dirs_to_files("./test")
   end
 
   def test_filter_files_dir
