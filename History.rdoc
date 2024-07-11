@@ -1,3 +1,9 @@
+=== 1.1.2 / 2024-07-11
+
+* 1 bug fix:
+
+  * Normalize './' off the front of all paths so options like '.' and '-test' work together better
+
 === 1.1.1 / 2022-07-03
 
 * 1 bug fix:
