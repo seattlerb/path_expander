@@ -55,7 +55,7 @@ class PathExpander
       else
         p
       end
-    }.flatten.sort.map { |s| s.delete_prefix "./" }
+    }.flatten.sort.map { |s| s.to_s.delete_prefix "./" }
   end
 
   ##
