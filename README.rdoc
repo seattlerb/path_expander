@@ -36,7 +36,7 @@ PathExpander.
       end
     end
 
-    MyPathExpander.new(ARGV, my_glob).process.each do |f|
+    MyPathExpander.new(ARGV, my_glob).process do |f|
       # do something with each file
     end
 
@@ -46,7 +46,7 @@ PathExpander.
 
 == INSTALL:
 
-* sudo gem install path_expander
+* gem install path_expander
 
 == LICENSE:
 
