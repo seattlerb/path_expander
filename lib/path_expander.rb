@@ -135,21 +135,42 @@ class PathExpander
   end
 
   ##
-  # Top-level method processes args. It replaces args' contents with a
-  # new array of flags to process and returns a list of files to
-  # process. Eg
+  # Top-level method processes args. If no block is given, immediately
+  # returns with an Enumerator for further chaining.
   #
-  #     PathExpander.new(ARGV).process.each do |f|
+  # Otherwise, it calls +pre_process+, +process_args+ and
+  # +process_flags+, enumerates over the files, and then calls
+  # +post_process+, returning self for any further chaining.
+  #
+  # Most of the time, you're going to provide a block to process files
+  # and do nothing more with the result. Eg:
+  #
+  #     PathExpander.new(ARGV).process do |f|
   #       puts "./#{f}"
   #     end
+  #
+  # or:
+  #
+  #     PathExpander.new(ARGV).process # => Enumerator
 
-  def process
+  def process(&b)
+    return enum_for(:process) unless block_given?
+
+    pre_process
+
     files, flags = process_args
 
     args.replace process_flags flags
 
-    files.uniq
+    files.uniq.each(&b)
+
+    post_process
+
+    self
   end
+
+  def pre_process = nil
+  def post_process = nil
 
   ##
   # A file filter mechanism similar to, but not as extensive as,

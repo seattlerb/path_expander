@@ -89,12 +89,33 @@ class TestPathExpander < Minitest::Test
     assert_filter_files_absolute_paths miss_absolute, "nope"
   end
 
+  def test_filter_files__ignore_file
+    files = expander.expand_dirs_to_files "test"
+
+    act = expander.filter_files files, "Manifest.txt"
+
+    assert_equal [], act
+  end
+
   def test_process
     self.args.concat %w[test --seed 42]
 
     act = expander.process
 
-    assert_equal %w[test/test_bad.rb test/test_path_expander.rb], act
+    assert_kind_of Enumerator, act
+    assert_equal %w[test/test_bad.rb test/test_path_expander.rb], act.to_a
+    assert_equal %w[--seed 42], expander.args
+    assert_equal %w[--seed 42], args # affected our original array (eg, ARGV)
+  end
+
+  def test_process__block
+    self.args.concat %w[test --seed 42]
+
+    act = []
+    result = expander.process { |x| act << x }
+
+    assert_same expander, result
+    assert_equal %w[test/test_bad.rb test/test_path_expander.rb], act.to_a
     assert_equal %w[--seed 42], expander.args
     assert_equal %w[--seed 42], args # affected our original array (eg, ARGV)
   end
