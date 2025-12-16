@@ -92,6 +92,8 @@ class PathExpander
     flags     = []
     clean     = true
 
+    root_dir = File.expand_path "/" # needed for windows paths
+
     args.each do |arg|
       case arg
       when /^@(.*)/ then # push back on, so they can have dirs/-/@ as well
@@ -107,7 +109,7 @@ class PathExpander
           flags << arg
         end
       else
-        root_path = File.expand_path(arg) == "/" # eg: -n /./
+        root_path = File.expand_path(arg) == root_dir # eg: -n /./
         if File.exist? arg and not root_path then
           clean = false
           pos_files += expand_dirs_to_files(arg)
