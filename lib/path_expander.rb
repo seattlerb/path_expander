@@ -1,3 +1,5 @@
+require "pathname" unless defined? Pathname
+
 ##
 # PathExpander helps pre-process command-line arguments expanding
 # directories into their constituent files. It further helps by
@@ -55,8 +57,10 @@ class PathExpander
       else
         p
       end
-    }.flatten.sort.map { |s| s.to_s.delete_prefix "./" }
+    }.flatten.sort.map { |s| _normalize s }
   end
+
+  def _normalize(f) = Pathname.new(f).cleanpath.to_s # :nodoc:
 
   ##
   # Process a file into more arguments. Override this to add
