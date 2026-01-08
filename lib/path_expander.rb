@@ -15,7 +15,7 @@ require "pathname" unless defined? Pathname
 # PathExpander.
 
 class PathExpander
-  VERSION = "2.0.0" # :nodoc:
+  VERSION = "2.0.1" # :nodoc:
 
   ##
   # The args array to process.

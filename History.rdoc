@@ -1,3 +1,12 @@
+=== 2.0.1 / 2026-01-08
+
+* 4 bug fixes:
+
+  * Fix path_expander processing of regexp args on windows.
+  * Normalize paths when expanding dirs.
+  * Added CI setup from minitest 6.
+  * Normalize GHA workflow with minitest and others.
+
 === 2.0.0 / 2025-12-11
 
 * 3 major enhancements:
