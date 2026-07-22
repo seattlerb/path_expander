@@ -48,6 +48,12 @@ class TestPathExpander < Minitest::Test
     assert_equal exp, expander.expand_dirs_to_files("./test")
   end
 
+  def test_expand_dirs_to_files__absolute_path
+    exp = %w[test/test_bad.rb test/test_path_expander.rb]
+
+    assert_equal exp, expander.expand_dirs_to_files("#{Dir.pwd}/test")
+  end
+
   def test_filter_files_dir
     assert_filter_files [], "test/"
     assert_filter_files_absolute_paths [], "test/"
